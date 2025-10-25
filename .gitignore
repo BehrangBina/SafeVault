@@ -1,0 +1,5 @@
+src/SafeVault.Api/bin/
+src/SafeVault.Api/obj/
+tests/SafeVault.Tests/bin/Debug/
+tests/SafeVault.Tests/bin/obj/
+tests/SafeVault.Tests/obj/
