@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlite(connectionString));
 
 // ---- Controllers + FluentValidation
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
 
 // Register FluentValidation validators from assembly
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
