@@ -21,7 +21,7 @@ This project was built with guidance from Microsoft Copilot to support secure co
 ---
 
 ## Project Structure
-
+```
 SafeVault/
 ├─ src/
 │ └─ SafeVault.Api/
@@ -59,4 +59,28 @@ SafeVault/
 ├─ IMPLEMENTATION_GUIDE.md
 ├─ PROJECT_SUBMISSION.md
 └─ SafeVault.sln
+```
 
+### API Endpoints
+ 
+| Endpoint        | Method | Description                 | Auth Required | Role         |
+|-----------------|---------|-----------------------------|----------------|---------------|
+| `/auth/register` | POST    | Register a new user          | No             | N/A           |
+| `/auth/login`    | POST    | Authenticate and receive JWT | No             | N/A           |
+| `/vault`         | POST    | Create a new vault item      | Yes            | User          |
+| `/vault`         | GET     | Get your vault items         | Yes            | User          |
+| `/vault/all`     | GET     | Get all vault items          | Yes            | Admin         |
+| `/vault/{id}`    | DELETE  | Delete a vault item          | Yes            | Owner/Admin   |
+| `/healthz`       | GET     | Health check endpoint        | No             | N/A           |
+
+---
+
+## Security Features Implemented
+
+| Vulnerability            | Fix Implemented |
+|---------------------------|-----------------|
+| **SQL Injection**         | Used EF Core with parameterized LINQ queries |
+| **XSS (Cross-Site Scripting)** | Sanitized user input using HtmlSanitizer |
+| **Weak Password Storage** | Implemented bcrypt hashing (BCrypt.Net) |
+| **Broken Access Control** | Enforced `[Authorize]` and `[Authorize(Roles="Admin")]` attributes |
+| **Missing Input Validation** | Applied FluentValidation rules for all DTOs |
