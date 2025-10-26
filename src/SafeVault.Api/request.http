@@ -1,0 +1,78 @@
+### Base URL (adjust port if different)
+@baseUrl = http://localhost:5159
+
+### 1️⃣ Health Check
+GET {{baseUrl}}/healthz
+Accept: application/json
+
+
+### 2️⃣ Register a new User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "user1@example.com",
+  "password": "GoodPass123!",
+  "role": "User"
+}
+
+
+### 3️⃣ Register an Admin (optional)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "AdminPass123!",
+  "role": "Admin"
+}
+
+
+### 4️⃣ Login as User
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "user1@example.com",
+  "password": "GoodPass123!"
+}
+
+ 
+
+### 5️⃣ Login as Admin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "AdminPass123!"
+}
+
+
+### 6️⃣ Create Vault Item (User)
+POST {{baseUrl}}/vault
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "content": "My first secure note <script>alert('xss')</script>"
+}
+
+
+### 7️⃣ List My Vault Items (User)
+GET {{baseUrl}}/vault
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+
+### 8️⃣ List All Vault Items (Admin only)
+GET {{baseUrl}}/vault/all
+Authorization: Bearer {{adminToken}}
+Accept: application/json
+
+
+### 9️⃣ Delete a Vault Item (User or Admin)
+# Replace {id} with an actual item ID returned from the list endpoints
+DELETE {{baseUrl}}/vault/1
+Authorization: Bearer {{userToken}}
+Accept: application/json

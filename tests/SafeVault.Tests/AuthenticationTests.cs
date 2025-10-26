@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -12,7 +13,10 @@ public class AuthenticationTests : IClassFixture<CustomWebApplicationFactory>
     public AuthenticationTests(CustomWebApplicationFactory factory)
     {
         _factory = factory;
-        _client = factory.CreateClient();
+        _client =  factory.CreateClient(new WebApplicationFactoryClientOptions
+        {
+            BaseAddress = new Uri("http://localhost:5159") // or any number you like
+        });
     }
 
     [Fact]
